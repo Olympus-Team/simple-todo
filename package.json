@@ -4,7 +4,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "db:migrate": "sequelize db:migrate",
+    "db:migrate:undo": "sequelize db:migrate:undo",
+    "db:undo:all": "sequelize db:migrate:undo:all",
+    "db:migrate:create": "sequelize migration:create --name"
   },
   "repository": "https://github.com/Olympus-Team/simple-todo.git",
   "author": "Olympus team",
@@ -13,7 +17,8 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "mysql2": "^2.1.0",
-    "sequelize": "^5.21.7"
+    "sequelize": "^5.21.7",
+    "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"
