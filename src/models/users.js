@@ -17,7 +17,7 @@ module.exports = sequelize.define("Users", {
         allowNull: true,
     },
     isActive: {
-        type: DataTypes.BOOLEAN,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: true,
     }
