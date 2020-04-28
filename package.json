@@ -1,0 +1,21 @@
+{
+  "name": "simple-todo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "repository": "https://github.com/Olympus-Team/simple-todo.git",
+  "author": "Olympus team",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
