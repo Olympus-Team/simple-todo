@@ -1,4 +1,4 @@
-const controller = require('../controllers/UserController');
+const controller = require('../controller/UserController');
 
 module.exports.setupRoutes = (app) =>{
     app.get('/api/v1/users', controller.getListUser);
