@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 /**
  * @param {import('express').Request} req
@@ -10,4 +10,4 @@ module.exports.checkAuthorize = (req, res, next) => {
     next();
   }
   res.sendStatus(401);
-}
+};
