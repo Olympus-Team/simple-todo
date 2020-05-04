@@ -6,8 +6,8 @@ const jwt = require('jsonwebtoken');
  * @param {import('express').NextFunction} next
  */
 module.exports.checkAuthorize = (req, res, next) => {
-    if (req.token) {
-        next();
-    }
-    res.sendStatus(401);
+  if (req.token) {
+    next();
+  }
+  res.sendStatus(401);
 }
