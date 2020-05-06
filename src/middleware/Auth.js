@@ -14,5 +14,5 @@ module.exports.checkAuthorize = (req, res, next) => {
     req.current_user = payload.email;
     next()
   }
-  return res.status(401).json({message: constanst.AUTHORIZATION});
+  return res.status(401).json({message : constanst.AUTHORIZATION});
 };
