@@ -1,6 +1,5 @@
 const controller = require('../controller/UserController');
 const auth = require('../controller/AuthController');
-
 /**
  * @param {import('express').Express} app
  */

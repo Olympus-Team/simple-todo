@@ -29,7 +29,8 @@ module.exports.getListUser = async (req, res, next) => {
       return res.status(constants.STATUS_CODE_200).json(data);
     })
     .catch((err) => {
-      next(err);
+      return res.status(500).json({message: err.message
+      });
     });
 };
 
@@ -40,7 +41,7 @@ module.exports.getListUser = async (req, res, next) => {
  */
 module.exports.getUserById = async (req, res, next) => {
   let userId = req.params.userId;
-  return User.findAll({ where: { id: userId } })
+  return User.findOne({ where: { id: userId } })
     .then((data) => {
       return res.status(constants.STATUS_CODE_200).json(data);
     })
