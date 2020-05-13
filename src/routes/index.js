@@ -5,7 +5,7 @@ const auth = require('../controller/AuthController');
  */
 module.exports.setupRoutes = (app) => {
   app.post('/login', auth.login);
-
+  
   app.get('/api/v1/users', controller.getListUser);
   app.get('/api/v1/users/:userId', controller.getUserById);
   app.post('/api/v1/user', controller.createUser);

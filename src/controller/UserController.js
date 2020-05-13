@@ -1,5 +1,5 @@
-const User = require("../models/users");
-const constants = require("../constants/index");
+const User = require('../models/users');
+const constants = require('../constants/index');
 
 /**
  * @param {import('express').Request} req
@@ -23,7 +23,7 @@ module.exports.createUser = (req, res, next) => {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-module.exports.getListUser = async (req, res, next) => {
+module.exports.getListUser = async (req, res) => {
   return User.findAll()
     .then((data) => {
       return res.status(constants.STATUS_CODE_200).json(data);

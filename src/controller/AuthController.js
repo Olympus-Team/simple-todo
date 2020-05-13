@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const constants = require('../constants/index');
-const User = require("../models/users");
+const User = require('../models/users');
 
 /**
  * @param {import('express').Request} req
@@ -16,7 +16,7 @@ module.exports.login = (req, res, next) => {
                 return res.status(200).json({
                     token: `Bearer ${token}`,
                     user: user
-                })
+                });
             }
             return res.status(constants.STATUS_CODE_200).json({
                 message: constants.EMAIL_PASSWORD_INCORRECT
@@ -25,4 +25,4 @@ module.exports.login = (req, res, next) => {
         .catch((err) => {
           next(err);
         });
-}
+};
