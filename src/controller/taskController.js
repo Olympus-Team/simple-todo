@@ -1,12 +1,17 @@
-const Tasks = require("../models/tasks");
+const Tasks = require('../models/tasks');
 
 const Op = require('sequelize').Op;
 
 // Create and Save a new Tasks
-exports.create = (req, res) => {
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next
+ */
+module.exports.create = (req, res) => {
     if (!req.body.taskName) {
         res.status(400).send({
-          message: "Content can not be empty!"
+          message: 'Content can not be empty!'
         });
         return;
     }
@@ -14,7 +19,7 @@ exports.create = (req, res) => {
     const task = {
         user_id: req.body.user_id,
         taskName: req.body.taskName,
-        taskDescription: req.body.taskDescription,
+        taskDescriptionl: req.body.taskDescriptionl,
         dueDate: req.body.dueDate
     };
     Tasks.create(task)
@@ -24,13 +29,18 @@ exports.create = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tasks."
+          err.message || 'Some error occurred while creating the Tasks.'
       });
     });
 };
 
 // Retrieve all Tasks from the database.
-exports.findAll = (req, res) => {
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next
+ */
+module.exports.findAll = (req, res) => {
     const taskName = req.query.taskName;
     var condition = taskName ? { taskName: { [Op.like]: `%${taskName}%` } } : null;
   
@@ -41,29 +51,37 @@ exports.findAll = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving tasks."
+            err.message || 'Some error occurred while retrieving tasks.'
         });
       });
 };
 
 // Find a single Tasks with an id
-exports.findOne = (req, res) => {
-    exports.findOne = (req, res) => {
-        const id = req.params.id;
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next
+ */
+module.exports.findOne = (req, res) => {
+    const id = req.params.id;
         Tasks.findByPk(id)
-          .then(data => {
+        .then(data => {
             res.send(data);
-          })
-          .catch(err => {
+        })
+        .catch(() => {
             res.status(500).send({
-              message: "Error retrieving Tasks with id=" + id
-            });
-          });
-      };
+            message: 'Error retrieving Tasks with id=' + id
+        });
+    });
 };
 
 // Update a Tasks by the id in the request
-exports.update = (req, res) => {
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next
+ */
+module.exports.update = (req, res) => {
     const taskName = req.params.taskName;
 
     Tasks.update(req.body, {
@@ -72,7 +90,7 @@ exports.update = (req, res) => {
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Tasks was updated successfully."
+            message: 'Tasks was updated successfully.'
           });
         } else {
           res.send({
@@ -80,15 +98,20 @@ exports.update = (req, res) => {
           });
         }
       })
-      .catch(err => {
+      .catch(() => {
         res.status(500).send({
-          message: "Error updating Tasks with name=" + taskName
+          message: 'Error updating Tasks with name=' + taskName
         });
       });
 };
 
 // Delete a Tasks with the specified id in the request
-exports.delete = (req, res) => {
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next
+ */
+module.exports.delete = (req, res) => {
     const taskName = req.params.taskName;
 
     Tasks.destroy({
@@ -97,7 +120,7 @@ exports.delete = (req, res) => {
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Tasks was deleted successfully!"
+            message: 'Tasks was deleted successfully!'
           });
         } else {
           res.send({
@@ -105,15 +128,20 @@ exports.delete = (req, res) => {
           });
         }
       })
-      .catch(err => {
+      .catch(() => {
         res.status(500).send({
-          message: "Could not delete Tasks with name=" + taskName
+          message: 'Could not delete Tasks with name=' + taskName
         });
       });
 };
 
 // Delete all Tasks from the database.
-exports.deleteAll = (req, res) => {
+/**
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next
+ */
+module.exports.deleteAll = (req, res) => {
     Tasks.destroy({
         where: {},
         truncate: false
@@ -124,21 +152,7 @@ exports.deleteAll = (req, res) => {
         .catch(err => {
           res.status(500).send({
             message:
-              err.message || "Some error occurred while removing all tasks."
+              err.message || 'Some error occurred while removing all tasks.'
           });
         });
 };
-
-// Find all published Tasks
-// exports.findAllPublished = (req, res) => {
-//     Tasks.findAll({ where: { active: true } })
-//     .then(data => {
-//       res.send(data);
-//     })
-//     .catch(err => {
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while retrieving tasks."
-//       });
-//     });
-// };

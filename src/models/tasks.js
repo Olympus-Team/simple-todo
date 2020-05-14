@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../database/connection');
 
-module.exports = sequelize.define("Tasks", {
+module.exports = sequelize.define('Tasks', {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -15,7 +15,7 @@ module.exports = sequelize.define("Tasks", {
     taskName: {
         type: Sequelize.STRING
     },
-    taskDescription: {
+    taskDescriptionl: {
         type: Sequelize.STRING
     },
     dueDate: {

@@ -12,7 +12,7 @@ module.exports.checkAuthorize = (req, res, next) => {
     let token = bearer.split(' ')[1];
     let payload = jwt.verify(token, constanst.SECRET_KEY);
     req.current_user = payload.email;
-    next()
+    next();
   }
   return res.status(401).json({message: constanst.AUTHORIZATION});
 };
