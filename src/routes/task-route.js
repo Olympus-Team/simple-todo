@@ -1,5 +1,5 @@
 module.exports.setupRoutes = (app) => {
-    const tasks = require("../controller/taskController.js");
+    const tasks = require("../controllers/taskController.js");
   
     // Create a new Task
     app.post("/", tasks.create);

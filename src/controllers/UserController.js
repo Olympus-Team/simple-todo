@@ -6,7 +6,7 @@ const constants = require('../constants/index');
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-module.exports.createUser = (req, res, next) => {
+exports.createUser = (req, res, next) => {
   let { name, email } = req.body;
 
   return User.create({ name, email })
@@ -23,7 +23,7 @@ module.exports.createUser = (req, res, next) => {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-module.exports.getListUser = async (req, res) => {
+exports.getListUser = async (req, res) => {
   return User.findAll()
     .then((data) => {
       return res.status(constants.STATUS_CODE_200).json(data);
@@ -39,7 +39,7 @@ module.exports.getListUser = async (req, res) => {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-module.exports.getUserById = async (req, res, next) => {
+exports.getUserById = async (req, res, next) => {
   let userId = req.params.userId;
   return User.findOne({ where: { id: userId } })
     .then((data) => {
@@ -55,7 +55,7 @@ module.exports.getUserById = async (req, res, next) => {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-module.exports.updateUserById = async (req, res, next) => {
+exports.updateUserById = async (req, res, next) => {
   let userId = req.body.user_id;
   let name = req.body.name;
   return User.findAll({ where: { id: userId } })
@@ -81,7 +81,7 @@ module.exports.updateUserById = async (req, res, next) => {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-module.exports.deleteUser = async (req, res, next) => {
+exports.deleteUser = async (req, res, next) => {
   let userId = req.params.userId;
   return User.destroy({ where: { id: userId } })
     .then((data) => {
