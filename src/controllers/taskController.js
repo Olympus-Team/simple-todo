@@ -1,5 +1,7 @@
 const Tasks = require('../models/tasks');
 const Op = require('sequelize').Op;
+const statusCode = require('http-status-codes');
+const errorHandle = require('../libs/ErrorHandler');
 
 /**
  * Author: Quang
@@ -10,12 +12,6 @@ const Op = require('sequelize').Op;
  * @param {import('express').NextFunction} next
  */
 exports.create = (req, res) => {
-    if (!req.body.taskName) {
-        res.status(400).send({
-          message: 'Content can not be empty!'
-        });
-        return;
-    }
     // Create a Tasks
     const task = {
         user_id: req.body.user_id,
@@ -25,13 +21,10 @@ exports.create = (req, res) => {
     };
     Tasks.create(task)
     .then(data => {
-      res.send(data);
+      return errorHandle.getErrorCode(res, statusCode.OK, data);
     })
     .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || 'Some error occurred while creating the Tasks.'
-      });
+      return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
     });
 };
 

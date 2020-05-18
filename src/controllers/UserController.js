@@ -1,5 +1,7 @@
 const User = require('../models/users');
 const constants = require('../constants/index');
+const statusCode = require('http-status-codes');
+const errorHandle = require('../libs/ErrorHandler');
 
 /**
  * Author: DucPV
@@ -13,7 +15,7 @@ exports.createUser = (req, res, next) => {
 
   return User.create({ name, email })
     .then((data) => {
-      return res.status(constants.STATUS_CODE_200).json(data);
+      return errorHandle.getErrorCode(res, statusCode.OK, data);
     })
     .catch((err) => {
       next(err);
@@ -30,11 +32,10 @@ exports.createUser = (req, res, next) => {
 exports.getListUser = async (req, res) => {
   return User.findAll()
     .then((data) => {
-      return res.status(constants.STATUS_CODE_200).json(data);
+      return res.statusCode(statusCode.OK).json(data);
     })
     .catch((err) => {
-      return res.status(500).json({message: err.message
-      });
+      return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
     });
 };
 
@@ -49,7 +50,7 @@ exports.getUserById = async (req, res, next) => {
   let userId = req.params.userId;
   return User.findOne({ where: { id: userId } })
     .then((data) => {
-      return res.status(constants.STATUS_CODE_200).json(data);
+      return res.statusCode(statusCode.OK).json(data);
     })
     .catch((err) => {
       next(err);
@@ -71,13 +72,13 @@ exports.updateUserById = async (req, res, next) => {
       if (user) {
         return User.update({ name: name }, { where: { id: userId } })
           .then((data) => {
-            return res.status(constants.STATUS_CODE_200).json(data);
+            return res.statusCode(statusCode.OK).json(data);
           })
           .catch((err) => {
             next(err);
           });
       }
-      return res.status(200).json({ message: constants.DATA_NOT_EXIST });
+      return errorHandle.getErrorCode(res, statusCode.OK, {message: constants.DATA_NOT_EXIST});
     })
     .catch((err) => {
       next(err);
@@ -95,7 +96,7 @@ exports.deleteUser = async (req, res, next) => {
   let userId = req.params.userId;
   return User.destroy({ where: { id: userId } })
     .then((data) => {
-      return res.status(constants.STATUS_CODE_200).json(data);
+      return res.statusCode(statusCode.OK).json(data);
     })
     .catch((err) => {
       next(err);

@@ -1,24 +1,26 @@
-const Sequelize = require('sequelize');
+const {DataTypes, Model} = require('sequelize');
 const sequelize = require('../database/connection');
 
-module.exports = sequelize.define('Tasks', {
+class Tasks extends Model {}
+Tasks.init({
     id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
     },
     user_id: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: DataTypes.INTEGER
     },
     taskName: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
     },
     taskDescriptionl: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
     },
     dueDate: {
-        type: Sequelize.DATE
+        type: DataTypes.DATE
     }
-});
+}, {sequelize});
+ module.exports = Tasks;
