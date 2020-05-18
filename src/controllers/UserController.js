@@ -1,5 +1,5 @@
-const User = require('../models/users');
-const constants = require('../constants/index');
+const User = require("../models/users");
+const constants = require("../constants/index");
 
 /**
  * Author: DucPV
@@ -9,13 +9,15 @@ const constants = require('../constants/index');
  * @param {import('express').NextFunction} next
  */
 exports.createUser = (req, res, next) => {
-  let {name, email} = req.body;
+  let { name, email } = req.body;
 
-  return User.create({name, email})
-      .then((data) => {
-        return res.status(constants.STATUS_CODE_200).json(data);
-      })
-      .catch((err) => { next(err); });
+  return User.create({ name, email })
+    .then((data) => {
+      return res.status(constants.STATUS_CODE_200).json(data);
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
 
 /**
@@ -27,11 +29,12 @@ exports.createUser = (req, res, next) => {
  */
 exports.getListUser = async (req, res) => {
   return User.findAll()
-      .then((data) => {
-        return res.status(constants.STATUS_CODE_200).json(data);
-      })
-      .catch(
-          (err) => { return res.status(500).json({message : err.message}); });
+    .then((data) => {
+      return res.status(constants.STATUS_CODE_200).json(data);
+    })
+    .catch((err) => {
+      return res.status(500).json({ message: err.message });
+    });
 };
 
 /**
@@ -43,11 +46,13 @@ exports.getListUser = async (req, res) => {
  */
 exports.getUserById = async (req, res, next) => {
   let userId = req.params.userId;
-  return User.findOne({where : {id : userId}})
-      .then((data) => {
-        return res.status(constants.STATUS_CODE_200).json(data);
-      })
-      .catch((err) => { next(err); });
+  return User.findOne({ where: { id: userId } })
+    .then((data) => {
+      return res.status(constants.STATUS_CODE_200).json(data);
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
 
 /**
@@ -60,18 +65,22 @@ exports.getUserById = async (req, res, next) => {
 exports.updateUserById = async (req, res, next) => {
   let userId = req.body.user_id;
   let name = req.body.name;
-  return User.findAll({where : {id : userId}})
-      .then((user) => {
-        if (user) {
-          return User.update({name : name}, {where : {id : userId}})
-              .then((data) => {
-                return res.status(constants.STATUS_CODE_200).json(data);
-              })
-              .catch((err) => { next(err); });
-        }
-        return res.status(200).json({message : constants.DATA_NOT_EXIST});
-      })
-      .catch((err) => { next(err); });
+  return User.findAll({ where: { id: userId } })
+    .then((user) => {
+      if (user) {
+        return User.update({ name: name }, { where: { id: userId } })
+          .then((data) => {
+            return res.status(constants.STATUS_CODE_200).json(data);
+          })
+          .catch((err) => {
+            next(err);
+          });
+      }
+      return res.status(200).json({ message: constants.DATA_NOT_EXIST });
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
 
 /**
@@ -83,9 +92,11 @@ exports.updateUserById = async (req, res, next) => {
  */
 exports.deleteUser = async (req, res, next) => {
   let userId = req.params.userId;
-  return User.destroy({where : {id : userId}})
-      .then((data) => {
-        return res.status(constants.STATUS_CODE_200).json(data);
-      })
-      .catch((err) => { next(err); });
+  return User.destroy({ where: { id: userId } })
+    .then((data) => {
+      return res.status(constants.STATUS_CODE_200).json(data);
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
