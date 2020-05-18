@@ -8,7 +8,9 @@
     "db:migrate": "sequelize db:migrate",
     "db:migrate:undo": "sequelize db:migrate:undo",
     "db:undo:all": "sequelize db:migrate:undo:all",
-    "db:migrate:create": "sequelize migration:create --name"
+    "db:migrate:create": "sequelize migration:create --name",
+    "db:seed:create": "sequelize seed:generate --name",
+    "db:seed:all": "sequelize db:seed:all"
   },
   "repository": "https://github.com/Olympus-Team/simple-todo.git",
   "author": "Olympus team",

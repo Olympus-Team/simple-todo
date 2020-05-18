@@ -2,6 +2,8 @@ const User = require('../models/users');
 const constants = require('../constants/index');
 
 /**
+ * Author: DucPV
+ * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
@@ -19,6 +21,8 @@ exports.createUser = (req, res, next) => {
 };
 
 /**
+ * Author: DucPV
+ * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
@@ -35,6 +39,8 @@ exports.getListUser = async (req, res) => {
 };
 
 /**
+ * Author: DucPV
+ * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
@@ -51,6 +57,8 @@ exports.getUserById = async (req, res, next) => {
 };
 
 /**
+ * Author: DucPV
+ * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
@@ -77,6 +85,8 @@ exports.updateUserById = async (req, res, next) => {
 };
 
 /**
+ * Author: DucPV
+ * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next

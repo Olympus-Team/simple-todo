@@ -1,14 +1,15 @@
 const Tasks = require('../models/tasks');
-
 const Op = require('sequelize').Op;
 
-// Create and Save a new Tasks
 /**
+ * Author: Quang
+ * Create and Save a new Tasks
+ * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-module.exports.create = (req, res) => {
+exports.create = (req, res) => {
     if (!req.body.taskName) {
         res.status(400).send({
           message: 'Content can not be empty!'
@@ -34,13 +35,15 @@ module.exports.create = (req, res) => {
     });
 };
 
-// Retrieve all Tasks from the database.
 /**
+ * Author: Quang
+ * Retrieve all Tasks from the database.
+ * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-module.exports.findAll = (req, res) => {
+exports.findAll = (req, res) => {
     const taskName = req.query.taskName;
     var condition = taskName ? { taskName: { [Op.like]: `%${taskName}%` } } : null;
   
@@ -56,13 +59,15 @@ module.exports.findAll = (req, res) => {
       });
 };
 
-// Find a single Tasks with an id
 /**
+ * Author: Quang
+ * Find a single Tasks with an id
+ * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-module.exports.findOne = (req, res) => {
+exports.findOne = (req, res) => {
     const id = req.params.id;
         Tasks.findByPk(id)
         .then(data => {
@@ -75,13 +80,15 @@ module.exports.findOne = (req, res) => {
     });
 };
 
-// Update a Tasks by the id in the request
 /**
+ * Author: Quang
+ * Update a Tasks by the id in the request
+ * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-module.exports.update = (req, res) => {
+exports.update = (req, res) => {
     const taskName = req.params.taskName;
 
     Tasks.update(req.body, {
@@ -105,13 +112,15 @@ module.exports.update = (req, res) => {
       });
 };
 
-// Delete a Tasks with the specified id in the request
 /**
+ * Author: Quang
+ * Delete a Tasks with the specified id in the request
+ * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-module.exports.delete = (req, res) => {
+exports.delete = (req, res) => {
     const taskName = req.params.taskName;
 
     Tasks.destroy({
@@ -135,8 +144,10 @@ module.exports.delete = (req, res) => {
       });
 };
 
-// Delete all Tasks from the database.
 /**
+ * Author: Quang
+ * Delete all Tasks from the database.
+ * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
