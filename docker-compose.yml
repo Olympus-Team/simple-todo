@@ -1,0 +1,19 @@
+version: '3'
+services:
+    # Database services
+    mysql-db:
+      container_name: mysql-db
+      image: mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_DATABASE: okrs-db
+        MYSQL_USER: root
+        MYSQL_PASSWORD: password
+      ports:
+        - 3000:3306
+    # App services
+    todo-ap:
+      container_name: todo-app
+      context: .
+      dockerfile: dockerfile
+      

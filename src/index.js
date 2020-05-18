@@ -5,7 +5,8 @@ const middleware = require('./middleware/Auth');
 const cors = require('cors');
 
 // eslint-disable-next-line no-undef
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.MYSQL_OS_PORT || 3000;
+console.log('Duc: ' + JSON.stringify(process.env));
 
 const app = express();
 
