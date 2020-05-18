@@ -6,4 +6,6 @@ module.exports = Object.freeze({
 
   SECRET_KEY: 'AHIHIDONGOC',
   STATUS_CODE_200: 200,
+  SEND_SUCCESSFULLY: 'Tasks successfully!',
+  SEND_ERROR: 'Tasks Error'
 });

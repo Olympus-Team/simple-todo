@@ -8,31 +8,13 @@ const errorHandle = require('../libs/ErrorHandler');
  * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
- * @param {import('express').NextFunction} next
  */
-exports.createUser = (req, res, next) => {
+exports.createUser = (req, res) => {
   let { name, email } = req.body;
 
   return User.create({ name, email })
     .then((data) => {
-      return errorHandle.getErrorCode(res, statusCode.OK, data);
-    })
-    .catch((err) => {
-      next(err);
-    });
-};
-
-/**
- * Author: DucPV
- * 
- * @param {import('express').Request} req
- * @param {import('express').Response} res
- * @param {import('express').NextFunction} next
- */
-exports.getListUser = async (req, res) => {
-  return User.findAll()
-    .then((data) => {
-      return res.statusCode(statusCode.OK).json(data);
+      return res.status(statusCode.OK).json(data);
     })
     .catch((err) => {
       return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
@@ -44,16 +26,14 @@ exports.getListUser = async (req, res) => {
  * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
- * @param {import('express').NextFunction} next
  */
-exports.getUserById = async (req, res, next) => {
-  let userId = req.params.userId;
-  return User.findOne({ where: { id: userId } })
+exports.getListUser = async (req, res) => {
+  return User.findAll()
     .then((data) => {
-      return res.statusCode(statusCode.OK).json(data);
+      return res.status(statusCode.OK).json(data);
     })
     .catch((err) => {
-      next(err);
+      return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
     });
 };
 
@@ -62,9 +42,25 @@ exports.getUserById = async (req, res, next) => {
  * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
- * @param {import('express').NextFunction} next
  */
-exports.updateUserById = async (req, res, next) => {
+exports.getUserById = async (req, res) => {
+  let userId = req.params.userId;
+  return User.findOne({ where: { id: userId } })
+    .then((data) => {
+      return res.status(statusCode.OK).json(data);
+    })
+    .catch((err) => {
+      return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
+    });
+};
+
+/**
+ * Author: DucPV
+ * 
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+exports.updateUserById = async (req, res) => {
   let userId = req.body.user_id;
   let name = req.body.name;
   return User.findAll({ where: { id: userId } })
@@ -72,16 +68,16 @@ exports.updateUserById = async (req, res, next) => {
       if (user) {
         return User.update({ name: name }, { where: { id: userId } })
           .then((data) => {
-            return res.statusCode(statusCode.OK).json(data);
+            return res.status(statusCode.OK).json(data);
           })
           .catch((err) => {
-            next(err);
+            return errorHandle.getErrorCode(res, statusCode.OK, {message: err.message});
           });
       }
       return errorHandle.getErrorCode(res, statusCode.OK, {message: constants.DATA_NOT_EXIST});
     })
     .catch((err) => {
-      next(err);
+      return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
     });
 };
 
@@ -90,15 +86,14 @@ exports.updateUserById = async (req, res, next) => {
  * 
  * @param {import('express').Request} req
  * @param {import('express').Response} res
- * @param {import('express').NextFunction} next
  */
-exports.deleteUser = async (req, res, next) => {
+exports.deleteUser = async (req, res) => {
   let userId = req.params.userId;
   return User.destroy({ where: { id: userId } })
     .then((data) => {
-      return res.statusCode(statusCode.OK).json(data);
+      return res.status(statusCode.OK).json(data);
     })
     .catch((err) => {
-      next(err);
+      return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
     });
 };
