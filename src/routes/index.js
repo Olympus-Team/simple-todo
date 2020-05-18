@@ -8,7 +8,7 @@ const tasks = require('../controllers/TaskController.js');
  */
 module.exports.setupRoutes = (app) => {
   app.post('/login', auth.login);
-  
+
   // api v1 for user
   app.get('/api/v1/users', controller.getListUser);
   app.get('/api/v1/users/:userId', controller.getUserById);
@@ -33,5 +33,4 @@ module.exports.setupRoutes = (app) => {
 
   // Delete all Tasks
   app.delete('/api/v1/tasks', tasks.deleteAll);
-
 };
