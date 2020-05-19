@@ -1,14 +1,14 @@
-version: '3'
+version: "3"
 services:
   # App services
   todo-backend:
     container_name: todo-backend
     env_file:
       - .env
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
-    depends_on: 
+    depends_on:
       - mysql-db
     ports:
       - ${PORT}:${PORT}
@@ -27,4 +27,3 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - ${MYSQL_OS_PORT}:${MYSQL_DOCKER_PORT}
-      
