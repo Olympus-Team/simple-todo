@@ -1,20 +1,26 @@
 
-const controller = require('../controllers/UserController');
-const auth = require('../controllers/AuthController');
-const tasks = require('../controllers/TaskController.js');
+import {
+  createUser,
+  getListUser,
+  getUserById,
+  deleteUser,
+  updateUserById
+} from '../controllers/UserController';
+import login from '../controllers/AuthController';
+import tasks from '../controllers/TaskController.js';
 
 /**
  * @param {import('express').Express} app
  */
-module.exports.setupRoutes = (app) => {
-  app.post('/login', auth.login);
+const setupRoutes =  (app) => {
+  app.post('/login', login);
   
   // api v1 for user
-  app.get('/api/v1/users', controller.getListUser);
-  app.get('/api/v1/users/:userId', controller.getUserById);
-  app.post('/api/v1/users', controller.createUser);
-  app.put('/api/v1/users', controller.updateUserById);
-  app.delete('/api/v1/user/:userId', controller.deleteUser);
+  app.get('/api/v1/users', getListUser);
+  app.get('/api/v1/users/:userId', getUserById);
+  app.post('/api/v1/users', createUser);
+  app.put('/api/v1/users', updateUserById);
+  app.delete('/api/v1/user/:userId', deleteUser);
 
   // Create a new Task
   app.post('/api/v1/tasks', tasks.create);
@@ -35,3 +41,5 @@ module.exports.setupRoutes = (app) => {
   app.delete('/api/v1/tasks', tasks.deleteAll);
 
 };
+
+export default setupRoutes;

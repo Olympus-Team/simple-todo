@@ -1,23 +1,23 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const route = require('./routes/index');
-const middleware = require('./middleware/Auth');
-const env = require('./helpers/AccessEnv');
+import express  from 'express';
+import bodyParser from 'body-parser';
+import cors from'cors';
+import setupRoutes from'./routes/index';
+import checkAuthorize from'./middleware/Auth';
+import accessEnv from'./helpers/AccessEnv';
 
-const PORT = env.accessEnv('PORT');
+const PORT = accessEnv('PORT');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({origin: true}));
-app.use('/api', middleware.checkAuthorize);
-app.get('/demodocker', (req, res) =>{
-  res.send('Dizz me quang');
+app.use('/api', checkAuthorize);
+app.get('/demoapi', (req, res) =>{
+  res.send('Hello world from Omlympus team');
 });
 
-route.setupRoutes(app);
+setupRoutes(app);
 
 app.listen(PORT, () => {
   console.log('App is listening on port: ' + PORT);

@@ -28,4 +28,4 @@ User.init({
     }
 },{sequelize});
 
-module.exports = User;
+export default User;

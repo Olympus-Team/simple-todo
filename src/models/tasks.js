@@ -1,5 +1,5 @@
-const {DataTypes, Model} = require('sequelize');
-const sequelize = require('../database/connection');
+import {DataTypes, Model} from 'sequelize';
+import sequelize from '../database/connection';
 
 class Tasks extends Model {}
 Tasks.init({
@@ -23,4 +23,4 @@ Tasks.init({
         type: DataTypes.DATE
     }
 }, {sequelize});
- module.exports = Tasks;
+export default Tasks;

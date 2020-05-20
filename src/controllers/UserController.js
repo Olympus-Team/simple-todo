@@ -9,7 +9,7 @@ const errorHandle = require('../libs/ErrorHandler');
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-exports.createUser = (req, res) => {
+export const createUser = (req, res) => {
   let { name, email } = req.body;
 
   return User.create({ name, email })
@@ -27,7 +27,7 @@ exports.createUser = (req, res) => {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-exports.getListUser = async (req, res) => {
+export const getListUser = async (req, res) => {
   return User.findAll()
     .then((data) => {
       return res.status(statusCode.OK).json(data);
@@ -43,7 +43,7 @@ exports.getListUser = async (req, res) => {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-exports.getUserById = async (req, res) => {
+export const getUserById = async (req, res) => {
   let userId = req.params.userId;
   return User.findOne({ where: { id: userId } })
     .then((data) => {
@@ -60,7 +60,7 @@ exports.getUserById = async (req, res) => {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-exports.updateUserById = async (req, res) => {
+export const updateUserById = async (req, res) => {
   let userId = req.body.user_id;
   let name = req.body.name;
   return User.findAll({ where: { id: userId } })
@@ -87,7 +87,7 @@ exports.updateUserById = async (req, res) => {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-exports.deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
   let userId = req.params.userId;
   return User.destroy({ where: { id: userId } })
     .then((data) => {

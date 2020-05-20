@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken');
-const constants = require('../constants/index');
-const User = require('../models/users');
+import jwt from 'jsonwebtoken';
+import constants from '../constants/index';
+import User from '../models/users';
 
 /**
  * Author: DucPV
@@ -9,7 +9,7 @@ const User = require('../models/users');
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-module.exports.login = (req, res, next) => {
+export const login = (req, res, next) => {
   let {email, password} = req.body;
   return User.findOne({ where: { email: email, password: password } })
     .then((user) => {
@@ -28,3 +28,5 @@ module.exports.login = (req, res, next) => {
       next(err);
     });
 };
+
+export default login;
