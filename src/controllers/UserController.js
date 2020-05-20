@@ -1,7 +1,7 @@
-const User = require('../models/users');
-const constants = require('../constants/index');
-const statusCode = require('http-status-codes');
-const errorHandle = require('../libs/ErrorHandler');
+import User from '../models/users';
+import constants from '../constants/index';
+import {OK, INTERNAL_SERVER_ERROR} from 'http-status-codes';
+import errorHandle from '../libs/ErrorHandler';
 
 /**
  * Author: DucPV
@@ -14,10 +14,10 @@ export const createUser = (req, res) => {
 
   return User.create({ name, email })
     .then((data) => {
-      return res.status(statusCode.OK).json(data);
+      return res.status(OK).json(data);
     })
     .catch((err) => {
-      return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
+      return errorHandle.getErrorCode(res, INTERNAL_SERVER_ERROR, {message: err.message});
     });
 };
 
@@ -30,10 +30,10 @@ export const createUser = (req, res) => {
 export const getListUser = async (req, res) => {
   return User.findAll()
     .then((data) => {
-      return res.status(statusCode.OK).json(data);
+      return res.status(OK).json(data);
     })
     .catch((err) => {
-      return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
+      return errorHandle.getErrorCode(res, INTERNAL_SERVER_ERROR, {message: err.message});
     });
 };
 
@@ -47,10 +47,10 @@ export const getUserById = async (req, res) => {
   let userId = req.params.userId;
   return User.findOne({ where: { id: userId } })
     .then((data) => {
-      return res.status(statusCode.OK).json(data);
+      return res.status(OK).json(data);
     })
     .catch((err) => {
-      return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
+      return errorHandle.getErrorCode(res, INTERNAL_SERVER_ERROR, {message: err.message});
     });
 };
 
@@ -68,16 +68,16 @@ export const updateUserById = async (req, res) => {
       if (user) {
         return User.update({ name: name }, { where: { id: userId } })
           .then((data) => {
-            return res.status(statusCode.OK).json(data);
+            return res.status(OK).json(data);
           })
           .catch((err) => {
-            return errorHandle.getErrorCode(res, statusCode.OK, {message: err.message});
+            return errorHandle.getErrorCode(res, OK, {message: err.message});
           });
       }
-      return errorHandle.getErrorCode(res, statusCode.OK, {message: constants.DATA_NOT_EXIST});
+      return errorHandle.getErrorCode(res, OK, {message: constants.DATA_NOT_EXIST});
     })
     .catch((err) => {
-      return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
+      return errorHandle.getErrorCode(res, INTERNAL_SERVER_ERROR, {message: err.message});
     });
 };
 
@@ -91,9 +91,9 @@ export const deleteUser = async (req, res) => {
   let userId = req.params.userId;
   return User.destroy({ where: { id: userId } })
     .then((data) => {
-      return res.status(statusCode.OK).json(data);
+      return res.status(OK).json(data);
     })
     .catch((err) => {
-      return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
+      return errorHandle.getErrorCode(res, INTERNAL_SERVER_ERROR, {message: err.message});
     });
 };

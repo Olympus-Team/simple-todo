@@ -1,8 +1,8 @@
-const Tasks = require('../models/tasks');
-const Op = require('sequelize').Op;
-const statusCode = require('http-status-codes');
-const errorHandle = require('../libs/ErrorHandler');
-const constants = require('../constants/index');
+import Tasks from '../models/tasks';
+import Op from 'sequelize';
+import {OK, INTERNAL_SERVER_ERROR, ACCEPTED} from 'http-status-codes';
+import errorHandle from '../libs/ErrorHandler';
+import constants from '../constants/index';
 
 /**
  * Author: Quang
@@ -21,10 +21,10 @@ exports.create = (req, res) => {
    };
    Tasks.create(task)
       .then(data => {
-         return errorHandle.getErrorCode(res, statusCode.OK, data);
+         return errorHandle.getErrorCode(res, OK, data);
       })
       .catch(err => {
-         return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, { message: err.message });
+         return errorHandle.getErrorCode(res, INTERNAL_SERVER_ERROR, { message: err.message });
       });
 };
 
@@ -40,10 +40,10 @@ exports.findAll = (req, res) => {
    var condition = taskName ? { taskName: { [Op.like]: `%${taskName}%` } } : null;
    Tasks.findAll({ where: condition })
       .then(data => {
-         return res.status(statusCode.OK).json(data);
+         return res.status(OK).json(data);
       })
       .catch(err => {
-         return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, { message: err.message });
+         return errorHandle.getErrorCode(res, INTERNAL_SERVER_ERROR, { message: err.message });
       });
 };
 
@@ -58,10 +58,10 @@ exports.findOne = (req, res) => {
    const id = req.params.id;
    Tasks.findByPk(id)
       .then(data => {
-         return res.status(statusCode.OK).json(data);
+         return res.status(OK).json(data);
       })
       .catch((err) => {
-         return errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, { message: err.message });
+         return errorHandle.getErrorCode(res, INTERNAL_SERVER_ERROR, { message: err.message });
       });
 };
 
@@ -80,13 +80,13 @@ exports.update = (req, res) => {
    })
       .then(num => {
          if (num == 1) {
-            return res.status(statusCode.OK).json({ message: constants.SEND_SUCCESSFULLY });
+            return res.status(OK).json({ message: constants.SEND_SUCCESSFULLY });
          } else {
-            return res.status(statusCode.ACCEPTED).json({ message: constants.SEND_ERROR});
+            return res.status(ACCEPTED).json({ message: constants.SEND_ERROR});
          }
       })
       .catch((err) => {
-         errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
+         errorHandle.getErrorCode(res, INTERNAL_SERVER_ERROR, {message: err.message});
       });
 };
 
@@ -105,13 +105,13 @@ exports.delete = (req, res) => {
    })
       .then(num => {
          if (num == 1) {
-            return res.status(statusCode.OK).json({ message: constants.SEND_SUCCESSFULLY });
+            return res.status(OK).json({ message: constants.SEND_SUCCESSFULLY });
          } else {
-            return res.status(statusCode.ACCEPTED).json({ message: constants.SEND_ERROR});
+            return res.status(ACCEPTED).json({ message: constants.SEND_ERROR});
          }
       })
       .catch((err) => {
-         errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
+         errorHandle.getErrorCode(res, INTERNAL_SERVER_ERROR, {message: err.message});
       });
 };
 
@@ -128,9 +128,9 @@ module.exports.deleteAll = (req, res) => {
       truncate: false
    })
       .then(() => {
-         return res.status(statusCode.OK).json({ message: constants.SEND_SUCCESSFULLY });
+         return res.status(OK).json({ message: constants.SEND_SUCCESSFULLY });
       })
       .catch(err => {
-         errorHandle.getErrorCode(res, statusCode.INTERNAL_SERVER_ERROR, {message: err.message});
+         errorHandle.getErrorCode(res, INTERNAL_SERVER_ERROR, {message: err.message});
       });
 };
